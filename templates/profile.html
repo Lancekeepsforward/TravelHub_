@@ -1,0 +1,80 @@
+{% extends "base.html" %}
+
+{% block content %}
+<style>
+    .resort-image {
+        transition: transform 0.3s ease;
+    }
+    .resort-image:hover {
+        transform: scale(1.1);
+    }
+    .resort-image-container {
+        overflow: hidden;
+        height: 200px;
+    }
+</style>
+
+<div class="row">
+    <div class="col-md-4">
+        <div class="card">
+            <div class="card-header">
+                <h3>Profile Information</h3>
+            </div>
+            <div class="card-body">
+                <p><strong>Username:</strong> {{ user.username }}</p>
+                <p><strong>Age:</strong> {{ user.age }}</p>
+                <p><strong>Member since:</strong> {{ user.created_at.strftime('%Y-%m-%d') }}</p>
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-md-8">
+        <div class="card">
+            <div class="card-header d-flex justify-content-between align-items-center">
+                <h3>My Resorts</h3>
+                <a href="{{ url_for('add_resort') }}" class="btn btn-primary">
+                    <i class="fas fa-plus me-2"></i>Add Resort
+                </a>
+            </div>
+            <div class="card-body">
+                {% if user.resorts %}
+                <div class="row row-cols-1 row-cols-md-2 g-4">
+                    {% for user_resort in user.resorts %}
+                    <div class="col">
+                        <div class="card h-100">
+                            {% if user_resort.resort.pic_location %}
+                            <a href="{{ url_for('resort_detail', resort_id=user_resort.resort.id) }}" class="text-decoration-none">
+                                <div class="resort-image-container">
+                                    <img src="{{ url_for('static', filename='pics/' + user_resort.resort.pic_location) }}" 
+                                         class="card-img-top resort-image" 
+                                         alt="{{ user_resort.resort.name }}">
+                                </div>
+                            </a>
+                            {% endif %}
+                            <div class="card-body">
+                                <h5 class="card-title">{{ user_resort.resort.name }}</h5>
+                                <p class="card-text">
+                                    <strong>Location:</strong> {{ user_resort.resort.city }}, {{ user_resort.resort.state }}<br>
+                                    <strong>Expense:</strong> ${{ user_resort.expense }}<br>
+                                    <strong>Recommendation:</strong> {{ user_resort.recommendation }}/5<br>
+                                    <strong>Comment:</strong> {{ user_resort.comment }}
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+                {% else %}
+                <div class="text-center py-5">
+                    <h4 class="mb-3">No Resorts Added Yet</h4>
+                    <p class="text-muted mb-4">You haven't shared any resort experiences yet.</p>
+                    <a href="{{ url_for('add_resort') }}" class="btn btn-primary">
+                        <i class="fas fa-plus me-2"></i>Add Your First Resort
+                    </a>
+                </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %} 

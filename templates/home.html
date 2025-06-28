@@ -1,0 +1,76 @@
+{% extends "base.html" %}
+
+{% macro sci_or_float(val) %}
+    {%- if val is not none -%}
+        {%- if val > 1e6 or (val != 0 and (val < 1e-2 and val > -1e-2)) -%}
+            {{ '%.2e' % val }}
+        {%- else -%}
+            {{ '%.2f' % val }}
+        {%- endif -%}
+    {%- endif -%}
+{% endmacro %}
+
+{% block content %}
+<div class="container mt-4">
+    <h1 class="mb-4">Welcome to TravelHub</h1>
+    
+    {% if resorts %}
+    <div class="row row-cols-1 row-cols-md-3 g-4">
+        {% for resort in resorts %}
+        <div class="col">
+            <div class="card h-100">
+                {% if resort.pic_location %}
+                <a href="{{ url_for('resort_detail', resort_id=resort.id) }}" class="resort-image-link">
+                    <img src="{{ url_for('static', filename='pics/' + resort.pic_location) }}" 
+                         class="card-img-top resort-image" 
+                         alt="{{ resort.name }}"
+                         style="height: 200px; object-fit: cover; transition: transform 0.3s ease;">
+                </a>
+                {% endif %}
+                <div class="card-body">
+                    <h5 class="card-title">{{ resort.name }}</h5>
+                    <p class="card-text">
+                        <strong>Type:</strong> {{ resort.type }}<br>
+                        <strong>Location:</strong> {{ resort.city }}, {{ resort.state }}<br>
+                        <strong>Country:</strong> {{ resort.country }}
+                    </p>
+                    {# Resort stats from app.py #}
+                    {% set stats = resort_stats[resort.id] %}
+                    {% if stats.avg_expense is not none or stats.avg_recommendation is not none %}
+                    <div class="mt-2">
+                        {% if stats.avg_expense is not none %}
+                        <span class="badge bg-info text-dark me-2">Avg. Cost: ${{ sci_or_float(stats.avg_expense) }}</span>
+                        {% endif %}
+                        {% if stats.avg_recommendation is not none %}
+                        <span class="badge bg-warning text-dark">Avg. Recommendation: {{ sci_or_float(stats.avg_recommendation) }}/10</span>
+                        {% endif %}
+                    </div>
+                    {% else %}
+                    <div class="mt-2">
+                        <span class="badge bg-secondary">No user stats yet</span>
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+    {% else %}
+    <div class="alert alert-info" role="alert">
+        <h4 class="alert-heading">No Resorts Available</h4>
+        <p>There are currently no resorts in the database. Please check back later or contact the administrator.</p>
+    </div>
+    {% endif %}
+</div>
+
+<style>
+.resort-image-link {
+    display: block;
+    overflow: hidden;
+}
+
+.resort-image-link:hover .resort-image {
+    transform: scale(1.1);
+}
+</style>
+{% endblock %} 

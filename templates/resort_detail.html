@@ -1,0 +1,109 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container mt-4">
+    <div class="row">
+        <!-- Resort Image and Basic Info -->
+        <div class="col-md-8">
+            <div class="card mb-4">
+                <img src="{{ url_for('static', filename='pics/' + resort.pic_location) }}" 
+                     class="card-img-top" 
+                     alt="{{ resort.name }}"
+                     style="height: 400px; object-fit: cover;">
+                <div class="card-body">
+                    <h2 class="card-title">{{ resort.name }}</h2>
+                    <p class="card-text">
+                        <strong>Type:</strong> {{ resort.type }}<br>
+                        <strong>Location:</strong> {{ resort.city }}, {{ resort.state }}, {{ resort.country }}
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Voting Section -->
+        <div class="col-md-4">
+            <div class="card mb-4">
+                <div class="card-body text-center">
+                    <h4>Votes</h4>
+                    <div class="d-flex justify-content-center align-items-center mb-3">
+                        <form action="{{ url_for('vote_resort', resort_id=resort.id) }}" method="POST" class="d-inline">
+                            <input type="hidden" name="vote" value="up">
+                            <button type="submit" class="btn btn-outline-success btn-lg {% if user_vote == 'up' %}active{% endif %}">
+                                <i class="fas fa-thumbs-up"></i>
+                            </button>
+                        </form>
+                        <h3 class="mx-3">{{ likes - dislikes }}</h3>
+                        <form action="{{ url_for('vote_resort', resort_id=resort.id) }}" method="POST" class="d-inline">
+                            <input type="hidden" name="vote" value="down">
+                            <button type="submit" class="btn btn-outline-danger btn-lg {% if user_vote == 'down' %}active{% endif %}">
+                                <i class="fas fa-thumbs-down"></i>
+                            </button>
+                        </form>
+                    </div>
+                    <p class="text-muted">
+                        {{ likes }} upvotes, {{ dislikes }} downvotes
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Comments Section -->
+    <div class="row">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-header">
+                    <h4>Comments</h4>
+                </div>
+                <div class="card-body">
+                    {% if session.user_id %}
+                    <form action="{{ url_for('add_comment', resort_id=resort.id) }}" method="POST" class="mb-4">
+                        <div class="form-group">
+                            <label for="comment">Your Comment</label>
+                            <textarea class="form-control" id="comment" name="comment" rows="3" required></textarea>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="expense">Total Expense ($)</label>
+                                    <input type="number" class="form-control" id="expense" name="expense" step="0.01">
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="recommendation">Recommendation (1-10)</label>
+                                    <input type="number" class="form-control" id="recommendation" name="recommendation" min="1" max="10">
+                                </div>
+                            </div>
+                        </div>
+                        <button type="submit" class="btn btn-primary mt-3">Add Comment</button>
+                    </form>
+                    {% else %}
+                    <p>Please <a href="{{ url_for('login') }}">login</a> to add a comment.</p>
+                    {% endif %}
+
+                    <div class="comments-list">
+                        {% for user_resort in resort.user_resorts if user_resort.comment %}
+                        <div class="comment mb-3">
+                            <div class="d-flex justify-content-between align-items-start">
+                                <div>
+                                    <h6>{{ user_resort.user.username }}</h6>
+                                    <p class="mb-1">{{ user_resort.comment }}</p>
+                                    {% if user_resort.expense %}
+                                    <small class="text-muted">Expense: ${{ user_resort.expense }}</small>
+                                    {% endif %}
+                                    {% if user_resort.recommendation %}
+                                    <small class="text-muted"> | Recommendation: {{ user_resort.recommendation }}/10</small>
+                                    {% endif %}
+                                </div>
+                                <small class="text-muted">{{ user_resort.created_at.strftime('%Y-%m-%d %H:%M') }}</small>
+                            </div>
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %} 

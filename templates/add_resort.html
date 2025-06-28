@@ -1,0 +1,102 @@
+{% extends "base.html" %}
+
+{% block content %}
+<style>
+    .card-body {
+        padding-top: 2rem;
+        padding-bottom: 2rem;
+    }
+    .mb-3, .mb-4 {
+        margin-bottom: 2rem !important;
+    }
+    .container.py-4 {
+        padding-top: 3rem !important;
+        padding-bottom: 3rem !important;
+    }
+</style>
+<div class="container py-4">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card">
+                <div class="card-header">
+                    <h3 class="mb-0">Add New Resort</h3>
+                </div>
+                <div class="card-body">
+                    <form method="POST" action="{{ url_for('add_resort') }}" enctype="multipart/form-data">
+                        <!-- Resort Image -->
+                        <div class="mb-4">
+                            <label for="resort_image" class="form-label">Resort Image</label>
+                            <input type="file" class="form-control" id="resort_image" name="resort_image" accept="image/*" required>
+                            <div class="form-text">Upload a photo of the resort (PNG, JPG, JPEG, or GIF)</div>
+                        </div>
+
+                        <!-- Resort Details -->
+                        <div class="row mb-3">
+                            <div class="col-md-6">
+                                <label for="name" class="form-label">Resort Name</label>
+                                <input type="text" class="form-control" id="name" name="name" required>
+                            </div>
+                            <div class="col-md-6">
+                                <label for="resort_type" class="form-label">Resort Type</label>
+                                <input type="text" class="form-control" id="resort_type" name="resort_type" placeholder="Enter resort type (e.g. Beach, Mountain, Ski)" required>
+                            </div>
+                        </div>
+
+                        <!-- Location Details -->
+                        <div class="row mb-3">
+                            <div class="col-md-6">
+                                <label for="country" class="form-label">Country</label>
+                                <input type="text" class="form-control" id="country" name="country" required>
+                            </div>
+                            <div class="col-md-6">
+                                <label for="state" class="form-label">State/Province</label>
+                                <input type="text" class="form-control" id="state" name="state" required>
+                            </div>
+                        </div>
+
+                        <div class="row mb-3">
+                            <div class="col-md-6">
+                                <label for="city" class="form-label">City</label>
+                                <input type="text" class="form-control" id="city" name="city" required>
+                            </div>
+                            <div class="col-md-6">
+                                <label for="county" class="form-label">County/Region</label>
+                                <input type="text" class="form-control" id="county" name="county">
+                            </div>
+                        </div>
+
+                        <!-- Experience Details -->
+                        <div class="row mb-3">
+                            <div class="col-md-6">
+                                <label for="expense" class="form-label">Total Expense ($)</label>
+                                <input type="number" class="form-control" id="expense" name="expense" min="0" step="0.01" required>
+                            </div>
+                            <div class="col-md-6">
+                                <label for="recommendation" class="form-label">Recommendation (1-10)</label>
+                                <input type="number" class="form-control" id="recommendation" name="recommendation" min="1" max="10" required>
+                            </div>
+                        </div>
+
+                        <!-- Comments -->
+                        <div class="mb-3">
+                            <label for="comment" class="form-label">Your Experience</label>
+                            <textarea class="form-control" id="comment" name="comment" rows="4" required></textarea>
+                            <div class="form-text">Share your experience, tips, and recommendations</div>
+                        </div>
+
+                        <!-- Submit Button -->
+                        <div class="d-grid gap-2">
+                            <button type="submit" class="btn btn-primary">
+                                <i class="fas fa-save me-2"></i>Save Resort
+                            </button>
+                            <a href="{{ url_for('profile') }}" class="btn btn-outline-secondary">
+                                <i class="fas fa-times me-2"></i>Cancel
+                            </a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %} 

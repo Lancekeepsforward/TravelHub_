@@ -1,0 +1,21 @@
+.DS_Store
+
+# 环境变量
+.env
+
+# 测试
+test/
+
+# 记录文档
+docs/
+
+# 视频
+*.mp4
+Recording/
+# 图片
+*.png
+
+# 音频
+*.mp3
+
+# 其他

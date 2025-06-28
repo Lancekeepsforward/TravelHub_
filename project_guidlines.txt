@@ -1,0 +1,14 @@
+Outlines:
+    develope a website called TravelHub for sharing resorts. People can sign in and have their profiles. Users can submit the information of resorts that they have been to. Those information will show up in homepage, and users can also see their submission in their profile. And the information show up in cards.
+    make this process as simple as possible. separate the database and web framework
+    use mysql for database, HTML, JS, CSS as web development, flask for web framework. Python as my coding language
+
+Details in database:
+    three tables: users, resorts, user_resort
+    users table has fields as id, username (unique), passwords (no need to hash), create_at (US estern time), is_admit (boolean), age
+    resorts table has fields as id, country, state, city, county, name, pic_location (location in my computer, I need to create a folder for them), type of resort (string)
+    user_resort table has fields as id, user_id, resort_id, like (upvote or downvote or null), expense (two decimals), comment, create_at (US estern time), recommendation (range from 1 to 10)
+
+Details in website structure:
+    direct to homepage first. then have buttons for login and sign-up in toolbar. after login replace login and sign-up bottons with profile and log-out buttons. In the middle of body, present information of submitted resort as cards, and zoom in the pic when user hovers over the pic.
+    in profile page, present user's personal information, and a protal to submit their new resorts.
