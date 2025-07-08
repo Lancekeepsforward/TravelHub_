@@ -4,7 +4,7 @@ A modern web application for sharing and discovering resort experiences with ima
 
 ## 📹 Demo
 
-https://github.com/yourusername/TravelHub/assets/youruserid/Introduction.mov
+https://github.com/yourusername/TravelHub/Introduction.mov
 
 ## ✨ Features
 
