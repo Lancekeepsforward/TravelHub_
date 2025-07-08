@@ -12,20 +12,20 @@ Need to Download
 ## 📷 Screenshots
 
 ### Home Page
-![Home Page](project_pics/HomePage.png)
+![Home Page](./project_pics/HomePage.png)
 
 ### Login Page
-![Login Page](project_pics/Login.png)
+![Login Page](./project_pics/Login.png)
 
 ### Personal Page
-![Personal Page](project_pics/PersonalPage.png)
+![Personal Page](./project_pics/PersonalPage.png)
 
 ### Resort Detail (Without Login)
-![Resort Detail Without Login](project_pics/ResortDetailWithoutLogin.png)
-![Resort Detail Without Login 2](project_pics/ResortDetailWithoutLogin2.png)
+![Resort Detail Without Login](./project_pics/ResortDetailWithoutLogin.png)
+![Resort Detail Without Login 2](./project_pics/ResortDetailWithoutLogin2.png)
 
 ### Resort Detail (With Login)
-![Resort Detail With Login](project_pics/ResortDetailWithLogin.png)
+![Resort Detail With Login](./project_pics/ResortDetailWithLogin.png)
 
 ## ✨ Features
 
