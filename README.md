@@ -6,7 +6,7 @@ A modern web application for sharing and discovering resort experiences with ima
 
 <!-- Drag and drop your Introduction.mov file here when editing on GitHub -->
 <!-- The video will be automatically embedded as a playable video -->
-[text](Introduction.mov)
+[Introduction_Video](Introduction.mov)
 
 ## ✨ Features
 
