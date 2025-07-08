@@ -4,7 +4,9 @@ A modern web application for sharing and discovering resort experiences with ima
 
 ## 📹 Demo
 
-https://github.com/Lancekeepsforward/TravelHub_/Introduction.mov
+<!-- Drag and drop your Introduction.mov file here when editing on GitHub -->
+<!-- The video will be automatically embedded as a playable video -->
+[text](Introduction.mov)
 
 ## ✨ Features
 
